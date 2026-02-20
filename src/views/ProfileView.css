@@ -1,0 +1,108 @@
+.profile-page {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 3rem 1rem;
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: var(--neon-green);
+    color: var(--bg-darker-green);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    font-weight: 800;
+}
+
+.role-badge {
+    display: inline-block;
+    margin-top: 0.5rem;
+    padding: 0.2rem 0.6rem;
+    background-color: var(--border-color);
+    border-radius: var(--border-radius-sm);
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+
+.profile-content {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
+
+.profile-section h3 {
+    font-size: 1.4rem;
+    margin-bottom: 1.5rem;
+    color: var(--text-dark);
+}
+
+.order-history-mock {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.order-card {
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    overflow: hidden;
+}
+
+.order-header {
+    background-color: var(--bg-body);
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.order-total,
+.order-id {
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+.order-body {
+    padding: 1.5rem;
+    background-color: var(--content-bg);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.settings-list {
+    list-style: none;
+    background: var(--content-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+}
+
+.settings-list li {
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    cursor: pointer;
+}
+
+.settings-list li:hover {
+    background-color: var(--bg-body);
+}
+
+.settings-list li:last-child {
+    border-bottom: none;
+}

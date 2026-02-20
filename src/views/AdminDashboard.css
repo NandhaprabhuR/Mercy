@@ -1,0 +1,63 @@
+.admin-error {
+    padding: 4rem;
+    text-align: center;
+    color: red;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.admin-dashboard {
+    max-width: 600px;
+    width: 100%;
+    margin: 0 auto;
+    background: var(--content-bg);
+    padding: 2rem;
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-color);
+}
+
+.admin-dashboard h2 {
+    margin-bottom: 1.5rem;
+    color: var(--text-dark);
+}
+
+.admin-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-group label {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--text-dark);
+}
+
+.form-group input,
+.form-group textarea {
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-sm);
+    font-family: inherit;
+    font-size: 1rem;
+}
+
+.submit-btn {
+    margin-top: 1rem;
+    padding: 1rem;
+    font-size: 1.1rem;
+}
+
+.status-msg {
+    text-align: center;
+    margin-top: 1rem;
+    font-weight: 500;
+    color: var(--bg-deep-green);
+}

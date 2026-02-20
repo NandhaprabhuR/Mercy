@@ -1,0 +1,98 @@
+.admin-products {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.admin-header-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.admin-header-actions h2 {
+    font-size: 1.8rem;
+    color: var(--text-dark);
+}
+
+.add-new-btn {
+    background: var(--bg-deep-green);
+    color: var(--content-bg);
+    padding: 0.6rem 1.2rem;
+    border-radius: var(--border-radius-sm);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.add-new-btn:hover {
+    background: var(--bg-darker-green);
+    text-decoration: none;
+    color: var(--content-bg);
+}
+
+.table-container {
+    background: var(--content-bg);
+    border-radius: var(--border-radius-md);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+    overflow-x: auto;
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.admin-table th,
+.admin-table td {
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.admin-table th {
+    background: var(--bg-body);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    letter-spacing: 0.5px;
+}
+
+.admin-table tbody tr:hover {
+    background-color: var(--bg-body);
+}
+
+.table-img {
+    width: 48px;
+    height: 48px;
+    border-radius: 4px;
+    object-fit: cover;
+}
+
+.font-medium {
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+.action-btn {
+    background: transparent;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.85rem;
+    margin-right: 0.5rem;
+}
+
+.action-btn.edit {
+    color: var(--bg-deep-green);
+}
+
+.action-btn.edit:hover {
+    text-decoration: underline;
+}
+
+.action-btn.delete {
+    color: #d9534f;
+}
+
+.action-btn.delete:hover {
+    text-decoration: underline;
+}

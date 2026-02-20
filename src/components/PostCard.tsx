@@ -1,5 +1,5 @@
 import React from 'react';
-import { Post } from '../models/Post';
+import type { Post } from '../models/Post';
 import './PostCard.css';
 
 interface PostCardProps {
@@ -34,10 +34,19 @@ export default function PostCard({ post }: PostCardProps) {
                 <img src={post.imageUrl} alt={post.caption} className="post-image" />
 
                 {/* Thematic Overlays based on the reference UI */}
-                {post.overlayText && (
+                {(post.overlayTextLine1 || post.overlayType === 'bottom-gradient') && (
                     <div className={`post-overlay overlay-${post.overlayType}`}>
                         <div className="overlay-content brand-font">
-                            {post.overlayText}
+                            {post.overlayType === 'bottom-gradient' ? (
+                                <><span className="highlight">/NEW/</span> HEIGHTS. <span className="highlight">/NEW/</span> GEAR</>
+                            ) : (
+                                <>
+                                    {post.overlayTextLine1 && <span>{post.overlayTextLine1}</span>}
+                                    {post.overlayTextLine2 && <span>{post.overlayTextLine2}</span>}
+                                    {post.overlayTextLine3 && <span>{post.overlayTextLine3}</span>}
+                                    {post.overlayTextLine4 && <span>{post.overlayTextLine4}</span>}
+                                </>
+                            )}
                         </div>
                     </div>
                 )}

@@ -2,13 +2,16 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 2rem;
+    padding: 0.8rem 2rem;
     background-color: var(--bg-darker-green);
+    /* Keep PEAK brand identity in header */
     border-bottom: 2px solid var(--neon-green);
     position: sticky;
     top: 0;
     z-index: 100;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    box-shadow: var(--shadow-md);
+    color: var(--content-bg);
+    gap: 2rem;
 }
 
 .nav-brand {
@@ -16,61 +19,140 @@
     align-items: baseline;
     gap: 0.5rem;
     cursor: pointer;
+    flex: 0 0 auto;
 }
 
 .brand-logo-text {
-    font-size: 2rem;
-    font-weight: 700;
+    font-size: 1.8rem;
+    font-weight: 800;
     color: var(--neon-green);
-    letter-spacing: 2px;
+    letter-spacing: 1px;
 }
 
 .brand-subtext {
-    font-size: 0.8rem;
-    color: var(--text-white);
-    letter-spacing: 3px;
-    font-weight: 300;
+    font-size: 0.75rem;
+    color: var(--content-bg);
+    letter-spacing: 2px;
+    font-weight: 400;
 }
 
-.nav-links {
+.nav-search {
+    flex: 1 1 auto;
     display: flex;
-    gap: 2rem;
+    max-width: 600px;
+    background: var(--content-bg);
+    border-radius: var(--border-radius-md);
+    overflow: hidden;
 }
 
-.nav-links a {
-    color: var(--text-muted);
-    font-weight: 600;
-    text-transform: uppercase;
-    font-size: 0.9rem;
-    letter-spacing: 1px;
-    position: relative;
-    padding-bottom: 4px;
+.nav-search input {
+    flex: 1;
+    padding: 0.6rem 1rem;
+    border: none;
+    outline: none;
+    font-family: inherit;
+    font-size: 0.95rem;
+    color: var(--text-dark);
 }
 
-.nav-links a::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0%;
-    height: 2px;
+.nav-search .search-btn {
     background-color: var(--neon-green);
-    transition: width 0.3s ease;
+    color: var(--bg-darker-green);
+    border-radius: 0;
+    padding: 0 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.nav-links a.active,
-.nav-links a:hover {
-    color: var(--text-white);
+.nav-search .search-btn:hover {
+    background-color: var(--neon-green-hover);
+    transform: none;
 }
 
-.nav-links a.active::after,
-.nav-links a:hover::after {
-    width: 100%;
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex: 0 0 auto;
 }
 
-@media (max-width: 600px) {
-    .nav-links {
-        display: none;
-        /* We would replace this with a bottom nav or hamburger menu later */
+.nav-auth {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.login-btn {
+    font-size: 0.85rem;
+    padding: 0.5rem 0.8rem;
+}
+
+.login-btn.outline {
+    background: transparent;
+    color: var(--content-bg);
+    border: 1px solid var(--content-bg);
+}
+
+.login-btn.outline:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.nav-userbox {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 0.9rem;
+}
+
+.nav-userbox .welcome-text {
+    color: var(--content-bg);
+    font-weight: 500;
+}
+
+.logout-btn {
+    background: transparent;
+    color: var(--neon-green);
+    border: 1px solid var(--neon-green);
+    font-size: 0.8rem;
+    padding: 0.3rem 0.6rem;
+}
+
+.nav-cart {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--content-bg);
+    position: relative;
+}
+
+.nav-cart:hover {
+    color: var(--neon-green);
+}
+
+.cart-badge {
+    position: absolute;
+    top: -8px;
+    left: 10px;
+    background-color: var(--neon-green);
+    color: var(--bg-darker-green);
+    font-size: 0.75rem;
+    font-weight: 800;
+    padding: 0.1rem 0.4rem;
+    border-radius: 10px;
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        flex-wrap: wrap;
+        padding: 0.8rem 1rem;
+    }
+
+    .nav-search {
+        order: 3;
+        width: 100%;
+        max-width: 100%;
+        margin-top: 0.5rem;
     }
 }

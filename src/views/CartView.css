@@ -1,0 +1,128 @@
+.cart-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+.cart-page h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+}
+
+.cart-content {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+}
+
+.cart-items {
+    flex: 1;
+    background: var(--content-bg);
+    padding: 1.5rem;
+    border-radius: var(--border-radius-md);
+    border: 1px solid var(--border-color);
+}
+
+.cart-item {
+    display: flex;
+    gap: 1.5rem;
+    padding-bottom: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.cart-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.cart-item img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: var(--border-radius-sm);
+}
+
+.item-details h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+}
+
+.item-price {
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+}
+
+.item-actions {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.item-actions select {
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--border-radius-sm);
+    border: 1px solid var(--border-color);
+}
+
+.item-actions .delete-btn {
+    background: transparent;
+    color: #d9534f;
+    font-size: 0.85rem;
+    padding: 0;
+}
+
+.item-actions .delete-btn:hover {
+    text-decoration: underline;
+    background: transparent;
+}
+
+.cart-summary {
+    width: 300px;
+    background: var(--content-bg);
+    padding: 1.5rem;
+    border-radius: var(--border-radius-md);
+    border: 1px solid var(--border-color);
+}
+
+.checkout-btn {
+    display: block;
+    text-align: center;
+    width: 100%;
+    background: var(--neon-green);
+    color: var(--text-dark);
+    padding: 0.75rem;
+    border-radius: var(--border-radius-sm);
+    font-weight: 600;
+    margin-top: 1rem;
+}
+
+.checkout-btn:hover {
+    background: var(--neon-green-hover);
+    text-decoration: none;
+}
+
+.empty-cart {
+    padding: 4rem;
+    text-align: center;
+    background: var(--content-bg);
+    border-radius: var(--border-radius-md);
+}
+
+.continue-shopping {
+    display: inline-block;
+    margin-top: 1rem;
+    color: var(--bg-deep-green);
+}
+
+@media (max-width: 768px) {
+    .cart-content {
+        flex-direction: column;
+    }
+
+    .cart-summary {
+        width: 100%;
+    }
+}
