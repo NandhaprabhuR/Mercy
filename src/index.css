@@ -1,11 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Grotesk:wght@600;700&display=swap');
+
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  /* PEAK Brand Colors */
+  --bg-deep-green: #235B47;
+  --bg-darker-green: #1C4838;
+  --neon-green: #97FF73;
+  --neon-green-hover: #7AE656;
+  
+  --text-white: #FFFFFF;
+  --text-muted: #E0EAEA;
+  --text-dark: #121212;
+
+  /* UI Elements */
+  --card-bg: #FFFFFF;
+  --border-radius-lg: 16px;
+  --border-radius-md: 12px;
+  --border-radius-sm: 8px;
+  
+  --shadow-subtle: 0 4px 20px rgba(0, 0, 0, 0.15);
+  --shadow-glow: 0 0 15px rgba(151, 255, 115, 0.3);
+
+  font-family: 'Outfit', system-ui, -apple-system, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color: var(--text-white);
+  background-color: var(--bg-deep-green);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -13,13 +34,10 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
@@ -28,41 +46,61 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  background-color: var(--bg-deep-green);
+  /* A subtle geometric background pattern typical of sport brands */
+  background-image: 
+    linear-gradient(135deg, var(--bg-darker-green) 25%, transparent 25%),
+    linear-gradient(225deg, var(--bg-darker-green) 25%, transparent 25%),
+    linear-gradient(45deg, var(--bg-darker-green) 25%, transparent 25%),
+    linear-gradient(315deg, var(--bg-darker-green) 25%, var(--bg-deep-green) 25%);
+  background-position:  40px 0, 40px 0, 0 0, 0 0;
+  background-size: 80px 80px;
+  background-attachment: fixed;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+h1, h2, h3, h4, .brand-font {
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
+a {
+  font-weight: 500;
+  color: var(--neon-green);
+  text-decoration: inherit;
+  transition: color 0.2s ease;
+}
+a:hover {
+  color: var(--neon-green-hover);
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Base button styling */
 button {
-  border-radius: 8px;
-  border: 1px solid transparent;
+  border-radius: var(--border-radius-sm);
+  border: none;
   padding: 0.6em 1.2em;
   font-size: 1em;
-  font-weight: 500;
+  font-weight: 600;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: var(--neon-green);
+  color: var(--text-dark);
   cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  transition: all 0.2s ease;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+button:hover {
+  background-color: var(--neon-green-hover);
+  box-shadow: var(--shadow-glow);
+  transform: translateY(-2px);
+}
+
+button:active {
+  transform: translateY(0);
 }

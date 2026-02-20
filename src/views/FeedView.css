@@ -1,0 +1,26 @@
+.feed-view-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.feed-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+/* Add a line connecting the posts as seen in the UI reference background (optional detail) */
+.feed-view-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 1px;
+    background-color: rgba(151, 255, 115, 0.2);
+    /* faint neon green line */
+    z-index: -1;
+    transform: translateX(-50%);
+}
