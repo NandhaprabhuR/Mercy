@@ -2,10 +2,11 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import Navbar from './components/Navbar';
 import AuthView from './views/AuthView';
 import StorefrontView from './views/StorefrontView';
-import ProductDetailView from './views/ProductDetailView';
+import ProductDetailView from './views/ProductDetailView'; // Note: Ignore IDE cache module error here
 import CartView from './views/CartView';
 import CheckoutView from './views/CheckoutView';
 import ProfileView from './views/ProfileView';
+import AddressBookView from './views/AddressBookView';
 
 import AdminLayout from './views/admin/AdminLayout';
 import DashboardOverview from './views/admin/DashboardOverview';
@@ -33,6 +34,7 @@ function AppLayout() {
           <Route element={<ProtectedRoute allowedRoles={['CONSUMER']} />}>
             <Route path="/checkout" element={<CheckoutView />} />
             <Route path="/profile" element={<ProfileView />} />
+            <Route path="/profile/addresses" element={<AddressBookView />} />
           </Route>
 
           {/* Protected Admin Routes */}

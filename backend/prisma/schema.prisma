@@ -12,8 +12,9 @@ datasource db {
 model User {
   id       String  @id @default(uuid())
   username String  @unique
-  role     String  @default("CONSUMER") // "ADMIN" or "CONSUMER"
-  orders   Order[]
+  role      String    @default("CONSUMER") // "ADMIN" or "CONSUMER"
+  orders    Order[]
+  addresses Address[]
 }
 
 model Product {
@@ -23,6 +24,20 @@ model Product {
   price       Float
   imageUrl    String
   createdAt   DateTime @default(now())
+}
+
+model Address {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  fullName  String
+  street    String
+  city      String
+  state     String
+  zipCode   String
+  country   String   @default("US")
+  isDefault Boolean  @default(false)
+  createdAt DateTime @default(now())
 }
 
 model Order {

@@ -57,6 +57,127 @@
     gap: 1.5rem;
 }
 
+/* Address Selector Styles (Amazon-like) */
+.address-selector h3 {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    color: var(--text-dark);
+}
+
+.address-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    margin-bottom: 1rem;
+}
+
+.address-option {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-sm);
+    cursor: pointer;
+    background: var(--content-bg);
+    transition: all var(--transition-speed);
+}
+
+.address-option:hover {
+    background: var(--bg-body);
+}
+
+.address-option.selected {
+    border-color: #e77600;
+    /* Subtle Amazon orange hint */
+    background: #fcfaf8;
+}
+
+.address-option input[type="radio"] {
+    margin-top: 0.2rem;
+    cursor: pointer;
+}
+
+.address-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    font-size: 0.95rem;
+}
+
+.address-details strong {
+    color: var(--text-dark);
+    font-size: 1rem;
+}
+
+.empty-addresses {
+    padding: 2rem;
+    text-align: center;
+    background: var(--bg-body);
+    border-radius: var(--border-radius-sm);
+    border: 1px dashed var(--border-color);
+}
+
+.empty-addresses p {
+    margin-bottom: 1rem;
+    color: var(--text-muted);
+}
+
+.add-address-btn {
+    padding: 0.6rem 1.2rem;
+}
+
+.manage-addresses-link {
+    display: block;
+    margin-top: 0.5rem;
+    text-align: left;
+}
+
+/* Payment Section Grid */
+.payment-method-section {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.payment-method-section h3 {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+    color: var(--text-dark);
+}
+
+.payment-card-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+.payment-card-grid .full-width {
+    grid-column: 1 / -1;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--text-dark);
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-sm);
+    font-family: inherit;
+    font-size: 0.95rem;
+    transition: border-color var(--transition-speed);
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: var(--neon-green);
+}
+
 .checkout-actions {
     display: flex;
     justify-content: flex-end;
@@ -69,6 +190,7 @@
     color: var(--text-muted);
     border: 1px solid var(--border-color);
     padding: 0.8rem 1.5rem;
+    transition: all var(--transition-speed);
 }
 
 .cancel-btn:hover {
@@ -79,8 +201,21 @@
     background: var(--bg-deep-green);
     color: var(--content-bg);
     padding: 0.8rem 1.5rem;
+    transition: all var(--transition-speed);
 }
 
-.confirm-btn:hover {
+.confirm-btn:hover:not(:disabled) {
     background: var(--bg-darker-green);
+}
+
+.confirm-btn:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+.status-msg {
+    margin-top: 1rem;
+    text-align: center;
+    font-weight: 600;
+    color: var(--bg-deep-green);
 }

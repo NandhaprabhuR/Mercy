@@ -13,6 +13,17 @@ export default function AuthView() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+
+        // Basic frontend validation
+        if (username.length < 3) {
+            setStatus('Username must be at least 3 characters.');
+            return;
+        }
+        if (password.length < 6) {
+            setStatus('Password must be at least 6 characters.');
+            return;
+        }
+
         setStatus('Loading...');
 
         const endpoint = isLogin ? '/api/auth/login' : '/api/auth/register';
@@ -66,6 +77,10 @@ export default function AuthView() {
                         <input
                             type="text"
                             required
+                            minLength={3}
+                            maxLength={20}
+                            pattern="^[a-zA-Z0-9_]+$"
+                            title="Username can only contain letters, numbers, and underscores."
                             value={username}
                             onChange={e => setUsername(e.target.value)}
                             placeholder="Enter your username"
@@ -77,9 +92,10 @@ export default function AuthView() {
                         <input
                             type="password"
                             required
+                            minLength={6}
                             value={password}
                             onChange={e => setPassword(e.target.value)}
-                            placeholder="••••••••"
+                            placeholder="•••••••• (min 6 chars)"
                         />
                     </div>
 

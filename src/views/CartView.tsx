@@ -1,27 +1,10 @@
 import { Link } from 'react-router-dom';
+import { useCart } from '../context/CartContext';
 import './CartView.css';
 
 export default function CartView() {
-    // In a real app, this would be fueled by Context or Redux
-    // We'll mock a realistic cart state for the prototype
-    const cartItems = [
-        {
-            id: 'prod-1',
-            name: 'PEAK Performance Tee',
-            price: 35.99,
-            quantity: 2,
-            imageUrl: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?q=80&w=800'
-        },
-        {
-            id: 'prod-2',
-            name: 'PEAK Pro Dumbbells (Pair)',
-            price: 120.00,
-            quantity: 1,
-            imageUrl: 'https://images.unsplash.com/photo-1638202993928-7267aad84c31?q=80&w=800'
-        }
-    ];
-
-    const subtotal = cartItems.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+    const { cartItems, getCartTotal, updateQuantity, removeFromCart } = useCart();
+    const subtotal = getCartTotal();
 
     return (
         <div className="cart-page">
@@ -37,12 +20,15 @@ export default function CartView() {
                                     <h3>{item.name}</h3>
                                     <p className="item-price">${item.price.toFixed(2)}</p>
                                     <div className="item-actions">
-                                        <select defaultValue={item.quantity}>
-                                            {[1, 2, 3, 4, 5].map(num => (
+                                        <select
+                                            value={item.quantity}
+                                            onChange={(e) => updateQuantity(item.id, Number(e.target.value))}
+                                        >
+                                            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(num => (
                                                 <option key={num} value={num}>Qty: {num}</option>
                                             ))}
                                         </select>
-                                        <button className="delete-btn">Delete</button>
+                                        <button className="delete-btn" onClick={() => removeFromCart(item.id)}>Delete</button>
                                     </div>
                                 </div>
                             </div>
