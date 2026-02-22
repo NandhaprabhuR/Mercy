@@ -1,8 +1,13 @@
 .admin-layout {
     display: flex;
     min-height: calc(100vh - 70px);
-    /* Adjust based on global navbar if it still exists above */
     background: var(--bg-body);
+    position: fixed;
+    top: 70px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10;
 }
 
 .admin-sidebar {
@@ -11,6 +16,8 @@
     color: var(--content-bg);
     padding: 2rem 0;
     flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
 }
 
 .admin-brand {
@@ -20,29 +27,267 @@
     gap: 0.5rem;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     margin-bottom: 1rem;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.mobile-sidebar-toggle {
+    display: none;
+    background: transparent;
+    border: none;
+    color: var(--neon-green);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0;
+}
+
+.brand-text {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
 }
 
 .admin-nav {
     display: flex;
     flex-direction: column;
+    flex: 1;
+    overflow-y: auto;
+}
+
+.nav-links {
+    flex: 1;
+}
+
+.nav-footer {
+    margin-top: auto;
+    padding-bottom: 1rem;
 }
 
 .admin-nav a {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
     padding: 1rem 1.5rem;
     color: var(--content-bg);
     text-decoration: none;
     font-weight: 500;
-    transition: background 0.2s ease;
+    transition: background 0.2s ease, padding 0.2s ease;
+}
+
+.nav-icon {
+    font-size: 1.25rem;
 }
 
 .admin-nav a:hover,
 .admin-nav a.active {
     background-color: rgba(255, 255, 255, 0.1);
     border-left: 4px solid var(--neon-green);
+    color: #ffffff;
 }
 
 .admin-main {
     flex-grow: 1;
     padding: 2rem;
     overflow-y: auto;
+    width: calc(100% - 250px);
+}
+
+@media (max-width: 768px) {
+    .admin-sidebar {
+        width: 70px;
+        padding-top: 1rem;
+        transition: width 0.3s ease;
+        overflow: hidden;
+    }
+
+    .admin-brand {
+        padding: 0 0 1.5rem 0;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .mobile-sidebar-toggle {
+        display: block;
+        margin-bottom: 0.5rem;
+    }
+
+    .brand-text {
+        display: none;
+    }
+
+    .admin-brand::before {
+        content: "N";
+        font-family: inherit;
+        font-weight: 900;
+        font-size: 1.8rem;
+        color: var(--neon-green);
+    }
+
+    .nav-label {
+        display: none;
+    }
+
+    .admin-nav a {
+        padding: 1rem 0;
+        justify-content: center;
+    }
+
+    .admin-main {
+        padding: 1rem 0.5rem;
+        width: calc(100% - 70px);
+        transition: width 0.3s ease;
+    }
+
+    /* Open State for Mobile Sidebar */
+    .admin-sidebar.open {
+        width: 250px;
+    }
+
+    .admin-sidebar.open .brand-text {
+        display: flex;
+    }
+
+    .admin-sidebar.open .admin-brand::before {
+        display: none;
+    }
+
+    .admin-sidebar.open .admin-brand {
+        flex-direction: row;
+        padding: 0 1.5rem 1.5rem 1.5rem;
+        justify-content: flex-start;
+    }
+
+    .admin-sidebar.open .mobile-sidebar-toggle {
+        margin-bottom: 0;
+        margin-right: 0.5rem;
+    }
+
+    .admin-sidebar.open .nav-label {
+        display: inline;
+    }
+
+    .admin-sidebar.open .admin-nav a {
+        padding: 1rem 1.5rem;
+        justify-content: flex-start;
+    }
+
+    .admin-sidebar.open~.admin-main {
+        width: calc(100% - 250px);
+    }
+}
+
+/* Modal Overlay and Content Styles (shared globally for admin) */
+.admin-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.75);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.admin-modal {
+    background: var(--bg-card);
+    padding: 2.5rem;
+    border-radius: var(--border-radius-lg);
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+    border: 1px solid var(--border-color);
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.admin-modal h3 {
+    margin-top: 0;
+    color: var(--text-color);
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.admin-modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.cancel-btn,
+.confirm-btn,
+.edit-btn,
+.delete-btn {
+    padding: 0.6rem 1.2rem;
+    border-radius: var(--border-radius-sm);
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s ease;
+}
+
+.cancel-btn {
+    background: transparent;
+    color: var(--text-muted);
+    border: 1px solid var(--border-color);
+}
+
+.cancel-btn:hover {
+    background: var(--bg-body);
+    color: var(--text-color);
+}
+
+.confirm-btn,
+.edit-btn {
+    background: var(--neon-green);
+    color: var(--bg-darker-green);
+}
+
+.confirm-btn:hover,
+.edit-btn:hover {
+    filter: brightness(1.1);
+}
+
+.delete-btn {
+    background: #d9534f;
+    color: #fff;
+}
+
+.delete-btn:hover {
+    background: #c9302c;
+}
+
+.user-details-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    color: var(--text-color);
+}
+
+.logout-sidebar-btn {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.5rem;
+    color: #e74c3c;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border-left: 3px solid transparent;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+    font-family: inherit;
+    font-size: 1rem;
+}
+
+.logout-sidebar-btn:hover {
+    background-color: rgba(231, 76, 60, 0.1);
+    color: #e74c3c;
+    border-left-color: #e74c3c;
 }

@@ -4,5 +4,7 @@ export interface Product {
     description: string;
     price: number;
     imageUrl: string;
+    category?: string;
+    isVeg: boolean;
     createdAt: string;
 }

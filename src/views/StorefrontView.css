@@ -1,5 +1,6 @@
 .storefront-container {
     width: 100%;
+    margin-top: 1.5rem;
 }
 
 .store-banner {
@@ -11,7 +12,73 @@
 .store-banner h2 {
     font-size: 1.5rem;
     font-weight: 700;
-    color: var(--bg-darker-green);
+    color: var(--text-dark);
+}
+
+.storefront-layout {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    gap: 1.5rem;
+}
+
+.storefront-filters {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1rem 1.5rem;
+    background: var(--content-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--shadow-sm);
+    flex-wrap: wrap;
+}
+
+.filter-group {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.filter-group label {
+    font-weight: 600;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    white-space: nowrap;
+}
+
+.filter-group select,
+.filter-group input {
+    padding: 0.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-sm);
+    background: var(--bg-body);
+    color: var(--text-dark);
+}
+
+.price-inputs {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.price-inputs input {
+    width: 80px;
+}
+
+.clear-btn {
+    margin-left: auto;
+    background: transparent;
+    color: #d9534f;
+    border: 1px solid #d9534f;
+    padding: 0.5rem 1rem;
+}
+
+.clear-btn:hover {
+    background: #d9534f;
+    color: white;
 }
 
 .product-grid {
@@ -41,6 +108,31 @@
     aspect-ratio: 1 / 1;
     background-color: #f8f8f8;
     overflow: hidden;
+    position: relative;
+}
+
+.product-badges {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    gap: 5px;
+}
+
+.badge {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    color: white;
+}
+
+.veg-badge {
+    background-color: #4CAF50;
+}
+
+.non-veg-badge {
+    background-color: #F44336;
 }
 
 .product-image-wrapper img {
@@ -81,7 +173,7 @@
 .add-to-cart-btn {
     width: 100%;
     background-color: var(--bg-deep-green);
-    color: var(--content-bg);
+    color: #ffffff;
 }
 
 .add-to-cart-btn:hover {

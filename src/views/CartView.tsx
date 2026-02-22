@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import './CartView.css';
@@ -5,6 +6,22 @@ import './CartView.css';
 export default function CartView() {
     const { cartItems, getCartTotal, updateQuantity, removeFromCart } = useCart();
     const subtotal = getCartTotal();
+    const [itemToDelete, setItemToDelete] = useState<{ id: string, name: string } | null>(null);
+
+    const handleDeleteClick = (id: string, name: string) => {
+        setItemToDelete({ id, name });
+    };
+
+    const confirmDelete = () => {
+        if (itemToDelete) {
+            removeFromCart(itemToDelete.id);
+            setItemToDelete(null);
+        }
+    };
+
+    const cancelDelete = () => {
+        setItemToDelete(null);
+    };
 
     return (
         <div className="cart-page">
@@ -20,15 +37,18 @@ export default function CartView() {
                                     <h3>{item.name}</h3>
                                     <p className="item-price">${item.price.toFixed(2)}</p>
                                     <div className="item-actions">
-                                        <select
-                                            value={item.quantity}
-                                            onChange={(e) => updateQuantity(item.id, Number(e.target.value))}
-                                        >
-                                            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(num => (
-                                                <option key={num} value={num}>Qty: {num}</option>
-                                            ))}
-                                        </select>
-                                        <button className="delete-btn" onClick={() => removeFromCart(item.id)}>Delete</button>
+                                        <div className="qty-wrapper">
+                                            <label htmlFor={`qty-${item.id}`}>Qty:</label>
+                                            <input
+                                                id={`qty-${item.id}`}
+                                                type="number"
+                                                min="1"
+                                                className="quantity-input"
+                                                value={item.quantity}
+                                                onChange={(e) => updateQuantity(item.id, Number(e.target.value))}
+                                            />
+                                        </div>
+                                        <button className="delete-btn" onClick={() => handleDeleteClick(item.id, item.name)}>Delete</button>
                                     </div>
                                 </div>
                             </div>
@@ -42,8 +62,22 @@ export default function CartView() {
                 </div>
             ) : (
                 <div className="empty-cart">
-                    <p>Your PEAK Cart is empty.</p>
+                    <p>Your NexCart Cart is empty.</p>
                     <Link to="/" className="continue-shopping">Continue Shopping</Link>
+                </div>
+            )}
+
+            {/* Custom Delete Confirmation Modal */}
+            {itemToDelete && (
+                <div className="cart-modal-overlay" onClick={cancelDelete}>
+                    <div className="cart-modal" onClick={e => e.stopPropagation()}>
+                        <h3>Remove Item</h3>
+                        <p>Are you sure you want to remove <strong>{itemToDelete.name}</strong> from your cart?</p>
+                        <div className="cart-modal-actions">
+                            <button className="cancel-btn" onClick={cancelDelete}>Cancel</button>
+                            <button className="confirm-btn" onClick={confirmDelete}>Remove</button>
+                        </div>
+                    </div>
                 </div>
             )}
         </div>

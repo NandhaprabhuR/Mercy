@@ -23,6 +23,16 @@ export default function CheckoutView() {
     const [selectedAddressId, setSelectedAddressId] = useState<string>('');
     const [status, setStatus] = useState<string | null>(null);
 
+    // Inline Address Form State
+    const [isAddingAddress, setIsAddingAddress] = useState(false);
+    const [newAddress, setNewAddress] = useState({
+        fullName: '',
+        street: '',
+        city: '',
+        state: '',
+        zipCode: ''
+    });
+
     // Mock Payment State
     const [cardNumber, setCardNumber] = useState('');
     const [expiry, setExpiry] = useState('');
@@ -54,8 +64,43 @@ export default function CheckoutView() {
         if (user) fetchAddresses();
     }, [user]);
 
+    const handleSaveAddress = async () => {
+        if (!newAddress.fullName || !newAddress.street || !newAddress.city || !newAddress.state || !newAddress.zipCode) {
+            setStatus('Please fill out all address fields.');
+            return;
+        }
+
+        try {
+            const res = await fetch('http://localhost:5001/api/addresses', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ ...newAddress, userId: user?.id })
+            });
+
+            if (res.ok) {
+                const createdAddress = await res.json();
+                setAddresses(prev => [...prev, createdAddress]);
+                setSelectedAddressId(createdAddress.id);
+                setIsAddingAddress(false);
+                setNewAddress({ fullName: '', street: '', city: '', state: '', zipCode: '' });
+                setStatus(null);
+            } else {
+                setStatus('Failed to save address.');
+            }
+        } catch (err) {
+            console.error(err);
+            setStatus('Network error saving address.');
+        }
+    };
+
     const handleCheckout = async (e: React.FormEvent) => {
         e.preventDefault();
+
+        // If currently filling out logic, prevent order submission
+        if (isAddingAddress) {
+            setStatus('Please save your new address before confirming the order.');
+            return;
+        }
 
         if (!selectedAddressId) {
             setStatus('Please select a shipping address to continue.');
@@ -119,10 +164,10 @@ export default function CheckoutView() {
                     <div className="address-selector">
                         <h3>Select a shipping address</h3>
 
-                        {addresses.length === 0 ? (
+                        {addresses.length === 0 && !isAddingAddress ? (
                             <div className="empty-addresses">
                                 <p>You have no saved addresses.</p>
-                                <button type="button" className="btn-secondary add-address-btn" onClick={() => navigate('/profile/addresses')}>
+                                <button type="button" className="btn-secondary add-address-btn" onClick={() => setIsAddingAddress(true)}>
                                     Add a new address
                                 </button>
                             </div>
@@ -139,6 +184,7 @@ export default function CheckoutView() {
                                             value={addr.id}
                                             checked={selectedAddressId === addr.id}
                                             onChange={() => setSelectedAddressId(addr.id)}
+                                            disabled={isAddingAddress}
                                         />
                                         <div className="address-details">
                                             <strong>{addr.fullName}</strong>
@@ -150,10 +196,46 @@ export default function CheckoutView() {
                             </div>
                         )}
 
-                        {addresses.length > 0 && (
-                            <button type="button" className="link-btn manage-addresses-link" onClick={() => navigate('/profile/addresses')}>
-                                Manage addresses
-                            </button>
+                        {addresses.length > 0 && !isAddingAddress && (
+                            <div className="address-actions-inline">
+                                <button type="button" className="link-btn" onClick={() => setIsAddingAddress(true)}>
+                                    + Add New Address
+                                </button>
+                            </div>
+                        )}
+
+                        {isAddingAddress && (
+                            <div className="inline-address-form">
+                                <h4>New Delivery Address</h4>
+                                <div className="form-group">
+                                    <label>Recipient Name</label>
+                                    <input type="text" value={newAddress.fullName} onChange={e => setNewAddress({ ...newAddress, fullName: e.target.value })} required />
+                                </div>
+                                <div className="form-group">
+                                    <label>Street Address</label>
+                                    <input type="text" value={newAddress.street} onChange={e => setNewAddress({ ...newAddress, street: e.target.value })} required />
+                                </div>
+                                <div className="form-row">
+                                    <div className="form-group">
+                                        <label>City</label>
+                                        <input type="text" value={newAddress.city} onChange={e => setNewAddress({ ...newAddress, city: e.target.value })} required />
+                                    </div>
+                                    <div className="form-group small">
+                                        <label>State</label>
+                                        <input type="text" value={newAddress.state} onChange={e => setNewAddress({ ...newAddress, state: e.target.value })} required maxLength={2} placeholder="e.g. CA" />
+                                    </div>
+                                    <div className="form-group medium">
+                                        <label>ZIP</label>
+                                        <input type="text" value={newAddress.zipCode} onChange={e => setNewAddress({ ...newAddress, zipCode: e.target.value })} required />
+                                    </div>
+                                </div>
+                                <div className="inline-form-actions">
+                                    {addresses.length > 0 && (
+                                        <button type="button" className="cancel-btn" onClick={() => setIsAddingAddress(false)}>Cancel</button>
+                                    )}
+                                    <button type="button" className="btn-primary custom-save-btn" onClick={handleSaveAddress}>Save & Select Address</button>
+                                </div>
+                            </div>
                         )}
                     </div>
 

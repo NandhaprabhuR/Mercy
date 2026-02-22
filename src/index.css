@@ -37,6 +37,14 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+[data-theme='dark'] {
+  --bg-body: #121212;
+  --content-bg: #1e1e1e;
+  --text-dark: #f3f4f6;
+  --text-muted: #9ca3af;
+  --border-color: #374151;
+}
+
 *,
 *::before,
 *::after {
@@ -101,7 +109,7 @@ button {
   font-weight: 600;
   font-family: inherit;
   background-color: var(--neon-green);
-  color: var(--text-dark);
+  color: var(--bg-darker-green);
   cursor: pointer;
   transition: all 0.2s ease;
 }

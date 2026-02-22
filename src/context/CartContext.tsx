@@ -40,13 +40,10 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     };
 
     const updateQuantity = (productId: string, quantity: number) => {
-        if (quantity < 1) {
-            removeFromCart(productId);
-            return;
-        }
+        const validQuantity = Math.max(1, quantity);
         setCartItems(prev =>
             prev.map(item =>
-                item.id === productId ? { ...item, quantity } : item
+                item.id === productId ? { ...item, quantity: validQuantity } : item
             )
         );
     };

@@ -61,10 +61,26 @@
     align-items: center;
 }
 
-.item-actions select {
+.item-actions .qty-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--text-dark);
+}
+
+.item-actions .quantity-input {
+    width: 60px;
     padding: 0.25rem 0.5rem;
     border-radius: var(--border-radius-sm);
     border: 1px solid var(--border-color);
+    background: var(--bg-body);
+    color: var(--text-dark);
+}
+
+.item-actions .quantity-input:focus {
+    outline: none;
+    border-color: var(--neon-green);
 }
 
 .item-actions .delete-btn {
@@ -92,7 +108,7 @@
     text-align: center;
     width: 100%;
     background: var(--neon-green);
-    color: var(--text-dark);
+    color: var(--bg-darker-green);
     padding: 0.75rem;
     border-radius: var(--border-radius-sm);
     font-weight: 600;
@@ -122,7 +138,84 @@
         flex-direction: column;
     }
 
+    .cart-item {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .item-actions {
+        justify-content: center;
+    }
+
     .cart-summary {
         width: 100%;
     }
+}
+
+/* Custom Modal Styles */
+.cart-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.cart-modal {
+    background-color: var(--content-bg);
+    border-radius: var(--border-radius-md);
+    padding: 2rem;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border-color);
+}
+
+.cart-modal h3 {
+    margin-bottom: 1rem;
+    color: var(--text-dark);
+}
+
+.cart-modal p {
+    margin-bottom: 2rem;
+    color: var(--text-muted);
+}
+
+.cart-modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+}
+
+.cart-modal-actions button {
+    padding: 0.5rem 1.5rem;
+    border-radius: var(--border-radius-sm);
+    font-weight: 500;
+}
+
+.cart-modal-actions .cancel-btn {
+    background-color: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-dark);
+}
+
+.cart-modal-actions .cancel-btn:hover {
+    background-color: var(--bg-body);
+}
+
+.cart-modal-actions .confirm-btn {
+    background-color: #d9534f;
+    border: 1px solid #d9534f;
+    color: white;
+}
+
+.cart-modal-actions .confirm-btn:hover {
+    background-color: #c9302c;
+    border-color: #ac2925;
 }

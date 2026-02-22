@@ -89,8 +89,8 @@
 
 .address-option.selected {
     border-color: #e77600;
-    /* Subtle Amazon orange hint */
-    background: #fcfaf8;
+    /* Subtle hint */
+    background: var(--bg-body);
 }
 
 .address-option input[type="radio"] {
@@ -131,6 +131,60 @@
     display: block;
     margin-top: 0.5rem;
     text-align: left;
+}
+
+/* Inline Address Styles */
+.address-actions-inline {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px dotted var(--border-color);
+}
+
+.inline-address-form {
+    margin-top: 1.5rem;
+    padding: 1.5rem;
+    background-color: var(--content-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+}
+
+.inline-address-form h4 {
+    margin-bottom: 1rem;
+    color: var(--text-dark);
+}
+
+.form-row {
+    display: flex;
+    gap: 1rem;
+}
+
+.form-row .small {
+    flex: 0 0 80px;
+}
+
+.form-row .medium {
+    flex: 0 0 120px;
+}
+
+.inline-form-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    justify-content: flex-end;
+}
+
+.custom-save-btn {
+    padding: 0.6rem 1.2rem;
+    background-color: var(--neon-green);
+    color: var(--bg-darker-green);
+    border: none;
+    font-weight: 600;
+    border-radius: var(--border-radius-sm);
+    cursor: pointer;
+}
+
+.custom-save-btn:hover {
+    background-color: #55dc65;
 }
 
 /* Payment Section Grid */
@@ -218,4 +272,24 @@
     text-align: center;
     font-weight: 600;
     color: var(--bg-deep-green);
+}
+
+@media (max-width: 600px) {
+    .checkout-content {
+        padding: 1.5rem;
+    }
+
+    .form-row {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .form-row .small,
+    .form-row .medium {
+        flex: 1 1 auto;
+    }
+
+    .payment-card-grid {
+        grid-template-columns: 1fr;
+    }
 }

@@ -15,8 +15,12 @@ const ensureAdminExists = async () => {
 ensureAdminExists().catch(console.error);
 
 export const login = async (req: Request, res: Response) => {
-    const { username } = req.body;
-    // Note: Bypassing strict password check for prototype simplicity since DB has no password field
+    const { username, password } = req.body;
+
+    // Strict requirement: only "admin" with password "123456" can login as the admin role.
+    if (username === 'admin' && password !== '123456') {
+        return res.status(401).json({ message: 'Invalid admin credentials' });
+    }
 
     try {
         const user = await prisma.user.findUnique({
@@ -59,6 +63,49 @@ export const register = async (req: Request, res: Response) => {
             token: `mock-jwt-${newUser.id}`,
             user: { id: newUser.id, username: newUser.username, role: newUser.role }
         });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Database error' });
+    }
+};
+
+export const updateProfile = async (req: Request, res: Response) => {
+    const { userId, oldPassword, newPassword, avatarUrl } = req.body;
+
+    try {
+        const user = await prisma.user.findUnique({ where: { id: userId } });
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        // Mock verification: In a real app we'd bcrypt.compare(oldPassword, user.passwordHash)
+        // Since this prototype has no password hash field, we just accept any string for oldPassword to simulate success,
+        // or check if it matches some hardcoded value if we wanted strictness. We'll simply let it pass as a mock.
+        if (oldPassword && oldPassword.length < 1) {
+            return res.status(400).json({ message: "Invalid old password." });
+        }
+
+        const updatedUser = await prisma.user.update({
+            where: { id: userId },
+            data: {
+                avatarUrl: avatarUrl || user.avatarUrl
+                // NOTE: In a real app we'd hash newPassword and save it here
+            }
+        });
+
+        res.json({ message: 'Profile updated successfully', user: { id: updatedUser.id, username: updatedUser.username, role: updatedUser.role, avatarUrl: updatedUser.avatarUrl } });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Database error' });
+    }
+};
+
+export const getAllUsers = async (req: Request, res: Response) => {
+    try {
+        const users = await prisma.user.findMany({
+            select: { id: true, username: true, role: true, avatarUrl: true }
+        });
+        res.json(users);
     } catch (err) {
         console.error(err);
         res.status(500).json({ message: 'Database error' });

@@ -15,6 +15,23 @@ export const getOrders = async (req: Request, res: Response) => {
     }
 };
 
+export const updateOrderStatus = async (req: Request, res: Response) => {
+    try {
+        const { id } = req.params;
+        const { status } = req.body;
+
+        const updatedOrder = await prisma.order.update({
+            where: { id },
+            data: { status }
+        });
+
+        res.json(updatedOrder);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Error updating order status' });
+    }
+};
+
 // Get orders belonging exclusively to a specific user
 export const getUserOrders = async (req: Request, res: Response) => {
     try {
@@ -57,5 +74,34 @@ export const createOrder = async (req: Request, res: Response) => {
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Error processing checkout/order' });
+    }
+};
+
+export const addOrderFeedback = async (req: Request, res: Response) => {
+    try {
+        const { id } = req.params;
+        const { rating, comments } = req.body;
+
+        const order = await prisma.order.findUnique({ where: { id } });
+        if (!order) {
+            return res.status(404).json({ message: "Order not found" });
+        }
+
+        const newStatus = ['RETURNED', 'REFUNDED', 'RETURN_REQUESTED'].includes(order.status)
+            ? order.status
+            : 'REVIEWED';
+
+        const updatedOrder = await prisma.order.update({
+            where: { id },
+            data: {
+                feedbackRating: rating,
+                feedbackComment: comments,
+                status: newStatus
+            }
+        });
+        res.status(200).json(updatedOrder);
+    } catch (error) {
+        console.error("Error adding feedback:", error);
+        res.status(500).json({ message: "Error adding feedback" });
     }
 };

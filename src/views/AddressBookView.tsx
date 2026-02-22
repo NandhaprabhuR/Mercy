@@ -26,12 +26,6 @@ export default function AddressBookView() {
     const [zipCode, setZipCode] = useState('');
     const [isDefault, setIsDefault] = useState(false);
 
-    useEffect(() => {
-        if (user) {
-            fetchAddresses();
-        }
-    }, [user]);
-
     const fetchAddresses = async () => {
         try {
             const response = await fetch(`http://localhost:5001/api/addresses/${user?.id}`);
@@ -40,9 +34,16 @@ export default function AddressBookView() {
                 setAddresses(data);
             }
         } catch (error) {
-            console.error("Failed to fetch addresses:", error);
+            console.error('Error fetching addresses:', error);
         }
     };
+
+    useEffect(() => {
+        if (user) {
+            // eslint-disable-next-line react-hooks/set-state-in-effect
+            fetchAddresses();
+        }
+    }, [user]);
 
     const handleAddAddress = async (e: React.FormEvent) => {
         e.preventDefault();

@@ -10,10 +10,11 @@ datasource db {
 }
 
 model User {
-  id       String  @id @default(uuid())
-  username String  @unique
-  role      String    @default("CONSUMER") // "ADMIN" or "CONSUMER"
-  orders    Order[]
+  id       String    @id @default(uuid())
+  username String    @unique
+  role     String    @default("CONSUMER") // "ADMIN" or "CONSUMER"
+  avatarUrl String?
+  orders   Order[]
   addresses Address[]
 }
 
@@ -23,6 +24,8 @@ model Product {
   description String
   price       Float
   imageUrl    String
+  category    String?
+  isVeg       Boolean  @default(true)
   createdAt   DateTime @default(now())
 }
 
@@ -50,4 +53,6 @@ model Order {
   createdAt       DateTime @default(now())
   // In a real app we'd have an OrderItem model linking to Product, but simplifying for prototype
   productIdsJson  String   
+  feedbackRating  Int?
+  feedbackComment String?
 }

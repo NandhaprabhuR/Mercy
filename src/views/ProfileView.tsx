@@ -1,54 +1,29 @@
-import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
+import { useTheme } from '../context/ThemeContext';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './ProfileView.css';
 
-interface Order {
-    id: string;
-    totalAmount: number;
-    status: string;
-    createdAt: string;
-    productIdsJson: string;
-}
-
 export default function ProfileView() {
     const { user, logout } = useAuth();
+    const { theme, toggleTheme } = useTheme();
     const navigate = useNavigate();
-    const [orders, setOrders] = useState<Order[]>([]);
-    const [isLoading, setIsLoading] = useState(true);
+    const [showLogoutModal, setShowLogoutModal] = useState(false);
 
-    const handleLogout = () => {
-        if (window.confirm("Are you sure you want to log out securely?")) {
-            logout();
-            navigate('/login');
-        }
+    const handleLogoutConfirm = () => {
+        logout();
+        navigate('/login');
     };
-
-    useEffect(() => {
-        const fetchOrders = async () => {
-            try {
-                const res = await fetch(`http://localhost:5001/api/orders/user/${user?.id}`);
-                if (res.ok) {
-                    const data = await res.json();
-                    setOrders(data);
-                }
-            } catch (err) {
-                console.error("Failed to fetch orders:", err);
-            } finally {
-                setIsLoading(false);
-            }
-        };
-
-        if (user) {
-            fetchOrders();
-        }
-    }, [user]);
 
     return (
         <div className="profile-page">
             <div className="profile-header">
                 <div className="avatar">
-                    {user?.username.charAt(0).toUpperCase()}
+                    {user?.avatarUrl ? (
+                        <img src={user.avatarUrl} alt="Avatar" style={{ width: '100%', height: '100%', borderRadius: '50%', objectFit: 'cover' }} />
+                    ) : (
+                        user?.username.charAt(0).toUpperCase()
+                    )}
                 </div>
                 <div>
                     <h2>{user?.username}</h2>
@@ -58,10 +33,7 @@ export default function ProfileView() {
 
             <div className="profile-content">
                 <div className="profile-actions-grid">
-                    <div className="action-card" onClick={() => {
-                        const ordersSection = document.getElementById('recent-orders');
-                        ordersSection?.scrollIntoView({ behavior: 'smooth' });
-                    }}>
+                    <div className="action-card" onClick={() => navigate('/profile/orders')}>
                         <div className="action-icon">📦</div>
                         <div className="action-text">
                             <h3>Your Orders</h3>
@@ -77,42 +49,55 @@ export default function ProfileView() {
                         </div>
                     </div>
 
-                    <div className="action-card logout-card" onClick={handleLogout}>
+                    <div className="action-card" onClick={() => navigate('/profile/reviews')}>
+                        <div className="action-icon">⭐</div>
+                        <div className="action-text">
+                            <h3>My Reviews</h3>
+                            <p>View all your submitted seller feedback</p>
+                        </div>
+                    </div>
+
+                    <div className="action-card" onClick={() => navigate('/profile/edit')}>
+                        <div className="action-icon">⚙️</div>
+                        <div className="action-text">
+                            <h3>Edit Profile</h3>
+                            <p>Change your avatar and update your password</p>
+                        </div>
+                    </div>
+
+                    <div className="action-card logout-card" onClick={() => setShowLogoutModal(true)}>
                         <div className="action-icon">🔒</div>
                         <div className="action-text">
                             <h3>Sign Out</h3>
-                            <p>Securely log out of your PEAK account</p>
+                            <p>Securely log out of your NexCart account</p>
                         </div>
                     </div>
                 </div>
 
-                <div className="profile-section" id="recent-orders">
-                    <h3>Recent Orders</h3>
-                    <div className="order-history-mock">
-                        {isLoading ? (
-                            <p>Loading your orders...</p>
-                        ) : orders.length === 0 ? (
-                            <p>You haven't placed any orders yet.</p>
-                        ) : (
-                            orders.map(order => (
-                                <div key={order.id} className="order-card">
-                                    <div className="order-header">
-                                        <span className="order-date">
-                                            Order placed: {new Date(order.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
-                                        </span>
-                                        <span className="order-total">Total: ${order.totalAmount.toFixed(2)}</span>
-                                        <span className="order-id">Order ID: {order.id.slice(0, 8)}...</span>
-                                    </div>
-                                    <div className="order-body">
-                                        <p>Status: <strong style={{ color: order.status === 'PENDING' ? '#e77600' : 'green' }}>{order.status}</strong></p>
-                                        <p>Items: {JSON.parse(order.productIdsJson).length} product(s)</p>
-                                    </div>
-                                </div>
-                            ))
-                        )}
+                <div className="profile-actions-grid" style={{ marginTop: '2rem' }}>
+                    <div className="action-card theme-card" onClick={toggleTheme} style={{ border: '2px dashed var(--border-color)', backgroundColor: 'transparent' }}>
+                        <div className="action-icon">{theme === 'dark' ? '☀️' : '🌙'}</div>
+                        <div className="action-text">
+                            <h3>{theme === 'dark' ? 'Light Mode' : 'Dark Mode'}</h3>
+                            <p>Switch to a {theme === 'dark' ? 'brighter' : 'sleeker'} looking experience!</p>
+                        </div>
                     </div>
                 </div>
             </div>
+
+            {/* Custom Logout Modal Overlay */}
+            {showLogoutModal && (
+                <div className="logout-modal-overlay" onClick={() => setShowLogoutModal(false)}>
+                    <div className="logout-modal" onClick={e => e.stopPropagation()}>
+                        <h3>Sign Out</h3>
+                        <p>Are you sure you want to log out securely?</p>
+                        <div className="logout-modal-actions">
+                            <button className="cancel-btn" onClick={() => setShowLogoutModal(false)}>Cancel</button>
+                            <button className="confirm-btn" onClick={handleLogoutConfirm}>Sign Out</button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

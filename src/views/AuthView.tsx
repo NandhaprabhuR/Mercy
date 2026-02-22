@@ -67,7 +67,7 @@ export default function AuthView() {
         <div className="auth-container">
             <div className="auth-card">
                 <div className="auth-header">
-                    <span className="brand-logo-text brand-font">PEAK</span>
+                    <span className="brand-logo-text brand-font">NexCart</span>
                     <h2>{isLogin ? 'Welcome Back' : 'Create Account'}</h2>
                 </div>
 

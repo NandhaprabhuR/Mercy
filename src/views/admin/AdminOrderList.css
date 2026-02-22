@@ -1,0 +1,104 @@
+.admin-order-list {
+    padding: 2rem;
+    background: var(--content-bg);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-sm);
+}
+
+.admin-order-list h2 {
+    margin-bottom: 1.5rem;
+    color: var(--text-dark);
+}
+
+.table-responsive {
+    overflow-x: auto;
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.admin-table th,
+.admin-table td {
+    padding: 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.admin-table th {
+    background-color: var(--bg-light);
+    color: var(--text-muted);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 0.5px;
+}
+
+.admin-table .mono {
+    font-family: monospace;
+    color: var(--text-muted);
+}
+
+.admin-table .sub-text {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 0.2rem;
+}
+
+.status-select {
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    border: 1px solid var(--border-color);
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    background-color: transparent;
+    outline: none;
+    appearance: menulist;
+}
+
+.status-select.pending {
+    color: #e77600;
+    border-color: #e77600;
+}
+
+.status-select.processing {
+    color: #007bff;
+    border-color: #007bff;
+}
+
+.status-select.shipped {
+    color: #17a2b8;
+    border-color: #17a2b8;
+}
+
+.status-select.out_for_delivery {
+    color: #856404;
+    border-color: #856404;
+}
+
+.status-select.delivered {
+    color: #28a745;
+    border-color: #28a745;
+}
+
+.status-select.return_requested {
+    color: #dc3545;
+    border-color: #dc3545;
+}
+.status-select.returned {
+    color: #6c757d;
+    border-color: #6c757d;
+}
+
+.status-select.refunded {
+    color: #f8f9fa;
+    border-color: #f8f9fa;
+    background-color: #495057;
+}
+
+.status-select.reviewed {
+    color: #17a2b8;
+    border-color: #17a2b8;
+}
