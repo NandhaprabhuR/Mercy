@@ -1,3 +1,4 @@
+import { API_BASE_URL } from '../config/api';
 import { useState, useEffect } from 'react';
 import { useToast } from '../../context/ToastContext';
 import './AdminOrderList.css';
@@ -28,7 +29,7 @@ export default function AdminOrderList() {
 
     const fetchOrders = async () => {
         try {
-            const res = await fetch('http://localhost:5001/api/orders');
+            const res = await fetch(`${API_BASE_URL}/api/orders`);
             if (res.ok) {
                 const data = await res.json();
                 setOrders(data);
@@ -42,7 +43,7 @@ export default function AdminOrderList() {
 
     const handleStatusChange = async (orderId: string, newStatus: string) => {
         try {
-            const res = await fetch(`http://localhost:5001/api/orders/${orderId}/status`, {
+            const res = await fetch(`${API_BASE_URL}/api/orders/${orderId}/status`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ status: newStatus })

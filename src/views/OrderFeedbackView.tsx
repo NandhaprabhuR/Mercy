@@ -1,3 +1,4 @@
+import { API_BASE_URL } from '../config/api';
 import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useToast } from '../context/ToastContext';
@@ -18,7 +19,7 @@ export default function OrderFeedbackView() {
 
         setIsSubmitting(true);
         try {
-            const res = await fetch(`http://localhost:5001/api/orders/${id}/feedback`, {
+            const res = await fetch(`${API_BASE_URL}/api/orders/${id}/feedback`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ rating, comments })

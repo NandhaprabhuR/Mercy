@@ -1,3 +1,4 @@
+import { API_BASE_URL } from '../config/api';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
@@ -29,7 +30,7 @@ export default function AuthView() {
         const endpoint = isLogin ? '/api/auth/login' : '/api/auth/register';
 
         try {
-            const res = await fetch(`http://localhost:5001${endpoint}`, {
+            const res = await fetch(`${API_BASE_URL}${endpoint}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

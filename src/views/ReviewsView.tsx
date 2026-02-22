@@ -1,3 +1,4 @@
+import { API_BASE_URL } from '../config/api';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
@@ -22,7 +23,7 @@ export default function ReviewsView() {
     useEffect(() => {
         const fetchOrders = async () => {
             try {
-                const res = await fetch(`http://localhost:5001/api/orders/user/${user?.id}`);
+                const res = await fetch(`${API_BASE_URL}/api/orders/user/${user?.id}`);
                 if (res.ok) {
                     const data: Order[] = await res.json();
                     // Filter down to only orders that have feedback

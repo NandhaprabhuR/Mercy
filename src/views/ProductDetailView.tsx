@@ -1,3 +1,4 @@
+import { API_BASE_URL } from '../config/api';
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
@@ -22,7 +23,7 @@ export default function ProductDetailView() {
         const fetchProducts = async () => {
             setIsLoading(true);
             try {
-                const res = await fetch('http://localhost:5001/api/products');
+                const res = await fetch(`${API_BASE_URL}/api/products`);
                 if (res.ok) {
                     const data: Product[] = await res.json();
                     setAllProducts(data);

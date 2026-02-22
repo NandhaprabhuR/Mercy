@@ -1,3 +1,4 @@
+import { API_BASE_URL } from '../config/api';
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
@@ -29,8 +30,8 @@ export default function OrderInvoiceView() {
                 // 1. Fetch Order
                 // If the user isn't logged in properly or we don't have their ID, we could fail.
                 // In a real app with proper auth tokens, we'd just hit GET /orders/:id directly.
-                const orderRes = await fetch(`http://localhost:5001/api/orders/user/${user?.id}`);
-                const productsRes = await fetch('http://localhost:5001/api/products');
+                const orderRes = await fetch(`${API_BASE_URL}/api/orders/user/${user?.id}`);
+                const productsRes = await fetch(`${API_BASE_URL}/api/products`);
 
                 if (orderRes.ok && productsRes.ok) {
                     const allOrders: Order[] = await orderRes.json();

@@ -1,3 +1,4 @@
+import { API_BASE_URL } from '../config/api';
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import './AddressBookView.css';
@@ -28,7 +29,7 @@ export default function AddressBookView() {
 
     const fetchAddresses = async () => {
         try {
-            const response = await fetch(`http://localhost:5001/api/addresses/${user?.id}`);
+            const response = await fetch(`${API_BASE_URL}/api/addresses/${user?.id}`);
             if (response.ok) {
                 const data = await response.json();
                 setAddresses(data);
@@ -48,7 +49,7 @@ export default function AddressBookView() {
     const handleAddAddress = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            const response = await fetch('http://localhost:5001/api/addresses', {
+            const response = await fetch(`${API_BASE_URL}/api/addresses`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -75,7 +76,7 @@ export default function AddressBookView() {
 
     const handleSetDefault = async (addressId: string) => {
         try {
-            const response = await fetch(`http://localhost:5001/api/addresses/${addressId}/default`, {
+            const response = await fetch(`${API_BASE_URL}/api/addresses/${addressId}/default`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ userId: user?.id })
@@ -88,7 +89,7 @@ export default function AddressBookView() {
 
     const handleDelete = async (addressId: string) => {
         try {
-            const response = await fetch(`http://localhost:5001/api/addresses/${addressId}`, {
+            const response = await fetch(`${API_BASE_URL}/api/addresses/${addressId}`, {
                 method: 'DELETE'
             });
             if (response.ok) fetchAddresses();

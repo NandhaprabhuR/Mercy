@@ -1,3 +1,4 @@
+import { API_BASE_URL } from '../config/api';
 import { useState, useEffect } from 'react';
 
 // Normally fetch from backend, but simulating based on our mocked Auth backend
@@ -21,7 +22,7 @@ export default function AdminUserList() {
     const [showBanConfirm, setShowBanConfirm] = useState(false);
 
     useEffect(() => {
-        fetch('http://localhost:5001/api/auth/users')
+        fetch(`${API_BASE_URL}/api/auth/users`)
             .then(res => res.json())
             .then((data: { id: string; username: string; role: string; avatarUrl?: string }[]) => {
                 const mappedUsers = data.map(u => ({

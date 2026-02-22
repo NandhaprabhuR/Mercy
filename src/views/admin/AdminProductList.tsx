@@ -1,3 +1,4 @@
+import { API_BASE_URL } from '../config/api';
 import { useState, useEffect } from 'react';
 import type { Product } from '../../models/Product';
 import { Link } from 'react-router-dom';
@@ -26,7 +27,7 @@ export default function AdminProductList() {
     });
 
     useEffect(() => {
-        fetch('http://localhost:5001/api/products')
+        fetch(`${API_BASE_URL}/api/products`)
             .then(res => res.json())
             .then((data: Product[]) => {
                 setProducts(data);
@@ -158,7 +159,7 @@ export default function AdminProductList() {
                                 <button className="cancel-btn" onClick={() => setEditingProduct(null)}>Cancel</button>
                                 <button className="confirm-btn" style={{ backgroundColor: 'var(--neon-green)', color: 'var(--bg-darker-green)', border: 'none' }} onClick={async () => {
                                     try {
-                                        const res = await fetch(`http://localhost:5001/api/products/${editingProduct.id}`, {
+                                        const res = await fetch(`${API_BASE_URL}/api/products/${editingProduct.id}`, {
                                             method: 'PUT',
                                             headers: { 'Content-Type': 'application/json' },
                                             body: JSON.stringify(editForm)
@@ -188,7 +189,7 @@ export default function AdminProductList() {
                                             <button className="cancel-btn" onClick={() => setShowDeleteConfirm(false)}>Cancel</button>
                                             <button className="confirm-btn" style={{ backgroundColor: '#d9534f', color: '#fff' }} onClick={async () => {
                                                 try {
-                                                    const res = await fetch(`http://localhost:5001/api/products/${editingProduct.id}`, {
+                                                    const res = await fetch(`${API_BASE_URL}/api/products/${editingProduct.id}`, {
                                                         method: 'DELETE'
                                                     });
                                                     if (res.ok) {

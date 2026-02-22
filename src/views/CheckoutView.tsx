@@ -1,3 +1,4 @@
+import { API_BASE_URL } from '../config/api';
 import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
@@ -43,7 +44,7 @@ export default function CheckoutView() {
     useEffect(() => {
         const fetchAddresses = async () => {
             try {
-                const res = await fetch(`http://localhost:5001/api/addresses/${user?.id}`);
+                const res = await fetch(`${API_BASE_URL}/api/addresses/${user?.id}`);
                 if (res.ok) {
                     const data: Address[] = await res.json();
                     setAddresses(data);
@@ -71,7 +72,7 @@ export default function CheckoutView() {
         }
 
         try {
-            const res = await fetch('http://localhost:5001/api/addresses', {
+            const res = await fetch(`${API_BASE_URL}/api/addresses`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ ...newAddress, userId: user?.id })
@@ -121,7 +122,7 @@ export default function CheckoutView() {
         const formattedAddressString = `${selectedAddress?.fullName}, ${selectedAddress?.street}, ${selectedAddress?.city}, ${selectedAddress?.state} ${selectedAddress?.zipCode}`;
 
         try {
-            const res = await fetch('http://localhost:5001/api/orders', {
+            const res = await fetch(`${API_BASE_URL}/api/orders`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({

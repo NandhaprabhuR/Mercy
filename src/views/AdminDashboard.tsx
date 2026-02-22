@@ -1,3 +1,4 @@
+import { API_BASE_URL } from '../config/api';
 import { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import './AdminDashboard.css';
@@ -24,7 +25,7 @@ export default function AdminDashboard() {
         setIsUploading(true);
         setStatus('Uploading image...');
         try {
-            const res = await fetch('http://localhost:5001/api/upload', {
+            const res = await fetch(`${API_BASE_URL}/api/upload`, {
                 method: 'POST',
                 body: uploadData
             });
@@ -52,7 +53,7 @@ export default function AdminDashboard() {
         setStatus('Submitting...');
 
         try {
-            const res = await fetch('http://localhost:5001/api/products', {
+            const res = await fetch(`${API_BASE_URL}/api/products`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

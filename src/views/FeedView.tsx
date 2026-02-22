@@ -1,3 +1,4 @@
+import { API_BASE_URL } from '../config/api';
 import { useState, useEffect } from 'react';
 import PostCard from '../components/PostCard';
 import type { Post } from '../models/Post';
@@ -8,7 +9,7 @@ export default function FeedView() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch('http://localhost:5001/api/posts')
+        fetch(`${API_BASE_URL}/api/posts`)
             .then(res => res.json())
             .then(data => {
                 setPosts(data);

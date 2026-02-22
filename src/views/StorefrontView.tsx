@@ -1,3 +1,4 @@
+import { API_BASE_URL } from '../config/api';
 import { useState, useEffect } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 import type { Product } from '../models/Product';
@@ -22,7 +23,7 @@ export default function StorefrontView() {
     const [categories, setCategories] = useState<string[]>([]);
 
     useEffect(() => {
-        fetch('http://localhost:5001/api/products')
+        fetch(`${API_BASE_URL}/api/products`)
             .then(res => res.json())
             .then((data: Product[]) => {
                 setProducts(data);

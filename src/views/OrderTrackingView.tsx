@@ -1,3 +1,4 @@
+import { API_BASE_URL } from '../config/api';
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
@@ -42,7 +43,7 @@ export default function OrderTrackingView() {
             try {
                 // For a real app, you'd want an endpoint that fetches a single order by ID.
                 // We will reuse the `getUserOrders` and filter it locally since this is a mock.
-                const res = await fetch(`http://localhost:5001/api/orders/user/${user?.id}`);
+                const res = await fetch(`${API_BASE_URL}/api/orders/user/${user?.id}`);
                 if (res.ok) {
                     const data: Order[] = await res.json();
                     const foundOrder = data.find(o => o.id === id);

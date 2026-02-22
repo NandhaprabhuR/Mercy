@@ -1,3 +1,4 @@
+import { API_BASE_URL } from '../config/api';
 import { useState, useEffect } from 'react';
 import './AdminOverview.css';
 
@@ -19,8 +20,8 @@ export default function AdminOverview() {
     const fetchDashboardData = async () => {
         try {
             const [ordersRes, usersRes] = await Promise.all([
-                fetch('http://localhost:5001/api/orders'),
-                fetch('http://localhost:5001/api/auth/users')
+                fetch(`${API_BASE_URL}/api/orders`),
+                fetch(`${API_BASE_URL}/api/auth/users`)
             ]);
             const orders = await ordersRes.json();
             const users = await usersRes.json();

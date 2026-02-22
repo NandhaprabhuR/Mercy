@@ -1,4 +1,4 @@
-import React from 'react';
+
 import type { Post } from '../models/Post';
 import './PostCard.css';
 

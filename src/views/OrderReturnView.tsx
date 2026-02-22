@@ -1,3 +1,4 @@
+import { API_BASE_URL } from '../config/api';
 import { useState } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { useToast } from '../context/ToastContext';
@@ -23,7 +24,7 @@ export default function OrderReturnView() {
         setIsSubmitting(true);
         try {
             // Update status to RETURN_REQUESTED
-            const res = await fetch(`http://localhost:5001/api/orders/${orderId}/status`, {
+            const res = await fetch(`${API_BASE_URL}/api/orders/${orderId}/status`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ status: 'RETURN_REQUESTED' })

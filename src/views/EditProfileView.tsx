@@ -1,3 +1,4 @@
+import { API_BASE_URL } from '../config/api';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
@@ -24,7 +25,7 @@ export default function EditProfileView() {
 
         setIsUploading(true);
         try {
-            const res = await fetch('http://localhost:5001/api/upload', {
+            const res = await fetch(`${API_BASE_URL}/api/upload`, {
                 method: 'POST',
                 body: formData
             });
@@ -53,7 +54,7 @@ export default function EditProfileView() {
 
         setIsLoading(true);
         try {
-            const res = await fetch('http://localhost:5001/api/auth/profile', {
+            const res = await fetch(`${API_BASE_URL}/api/auth/profile`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
